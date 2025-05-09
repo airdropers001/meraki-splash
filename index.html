@@ -56,17 +56,17 @@
       <li>Public network — use at your own risk</li>
       <li>We collect basic usage statistics</li>
     </ul>
-    <button onclick="connectToInternet()">Agree and Connect</button>
+    <button onclick="redirectToVoucherPage()">Agree and Continue</button>
   </div>
 </div>
 
 <script>
-  function connectToInternet() {
-    const params = new URLSearchParams(window.location.search);
-    const baseGrantUrl = params.get("base_grant_url") || "https://n594.network-auth.com/splash";
-    const userContinueUrl = params.get("user_continue_url") || "https://n594.network-auth.com/splash";
+  function redirectToVoucherPage() {
+    // This is the typical URL Meraki uses for splash pages (voucher entry)
+    const voucherSplashUrl = "https://n594.network-auth.com/splash";
 
-    window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
+    // Redirect to the voucher login page directly
+    window.location.href = voucherSplashUrl;
   }
 </script>
 
