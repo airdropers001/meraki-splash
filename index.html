@@ -63,8 +63,8 @@
 <script>
   function connectToInternet() {
     const params = new URLSearchParams(window.location.search);
-    const baseGrantUrl = params.get("base_grant_url") || "https://example.com/grant";
-    const userContinueUrl = params.get("user_continue_url") || "https://example.com";
+    const baseGrantUrl = params.get("base_grant_url") || "https://n594.network-auth.com";
+    const userContinueUrl = params.get("user_continue_url") || "https://n594.network-auth.com";
 
     window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
   }
