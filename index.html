@@ -63,14 +63,10 @@
 <script>
   function connectToInternet() {
     const params = new URLSearchParams(window.location.search);
-    const baseGrantUrl = params.get("base_grant_url");
-    const userContinueUrl = params.get("user_continue_url") || "http://example.com";
+    const baseGrantUrl = params.get("base_grant_url") || "https://example.com/grant";
+    const userContinueUrl = params.get("user_continue_url") || "https://example.com";
 
-    if (baseGrantUrl) {
-      window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
-    } else {
-      alert("This only works on a Meraki captive portal.");
-    }
+    window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
   }
 </script>
 
