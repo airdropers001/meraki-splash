@@ -1,25 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Welcome to Free Wi-Fi</title>
+  <title>$MERAKI:NETWORK_NAME$</title>
+  <style type="text/css" media="screen">
+    $MERAKI:INLINE_MAIN_CSS$
+  </style>
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
 </head>
+
 <body>
-  <h1>Enjoy Free Wi-Fi</h1>
-  <p>Click below to continue.</p>
-  <button onclick="redirectUser()">Connect</button>
+  <div id="content">
+    <div id="container">
+      <div class="header">
+        <div id="icon_cell">$MERAKI:NETWORK_LOGO_IMG_TAG$</div>
+      </div>
 
-  <script>
-    function redirectUser() {
-      const params = new URLSearchParams(window.location.search);
-      const baseGrantUrl = params.get("base_grant_url");
-      const userContinueUrl = params.get("user_continue_url") || "http://example.com";
+      <div class="error $MERAKI:HIDDEN_UNLESS_NOTICE_MESSAGES$">
+        <p>$MERAKI:NOTICE_MESSAGES$</p>
+      </div>
 
-      if (baseGrantUrl) {
-        window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
-      } else {
-        alert("base_grant_url is missing. Are you testing without Meraki?");
-      }
-    }
-  </script>
+      <div id="auth">
+        <div id="left_col">
+          <h1>$MERAKI:WELCOME$$MERAKI:NETWORK_NAME$</h1>
+          <p>$MERAKI:NETWORK_MESSAGE$</p>
+          <p>$MERAKI:AUTH_FAST_PREPAID_NEED_CODE$</p>
+        </div>
+
+        <div id="right_col">
+          <div class="login-error $MERAKI:HIDDEN_UNLESS_ERROR_MESSAGES$">
+            <p>$MERAKI:WARNING_IMAGE$$MERAKI:ERROR_MESSAGES$</p>
+          </div>
+          <div id="signin_form" class="formarea form_links">
+            $MERAKI:MODERN_FAST_PREPAID_FORM$
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <h3>POWERED BY</h3>
+    $MERAKI:CISCO_MERAKI_SMALL$
+  </div>
+
+$MERAKI:MERAKI_JS$
+<div id="termsModal" style="display:block; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(0,0,0,0.5);">
+  <div style="background-color:#fff; margin:15% auto; padding:20px; border:1px solid #888; width:80%; max-width:500px;">
+    <h2>Accept Terms and Conditions</h2>
+    <p>Please read and accept the terms before connecting to the network.</p>
+    <div style="height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+      <!-- Replace this with your actual terms -->
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at nunc vitae neque dapibus interdum...</p>
+    </div>
+    <button onclick="acceptTerms()" style="padding:10px 20px;">Accept</button>
+  </div>
+</div>
+
+<script>
+  function acceptTerms() {
+    document.getElementById('termsModal').style.display = 'none';
+    document.querySelector('#signin_form').style.pointerEvents = 'auto';
+    document.querySelector('#signin_form').style.opacity = '1';
+  }
+
+  // Initially disable the sign-in form
+  window.onload = function () {
+    const form = document.querySelector('#signin_form');
+    form.style.pointerEvents = 'none';
+    form.style.opacity = '0.5';
+  }
+</script>
 </body>
 </html>
