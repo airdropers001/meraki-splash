@@ -6,18 +6,19 @@
 <body>
   <h1>Enjoy Free Wi-Fi</h1>
   <p>Click below to continue.</p>
-  <form action="" method="get" onsubmit="redirectUser()">
-    <input type="submit" value="Connect">
-  </form>
+  <button onclick="redirectUser()">Connect</button>
+
   <script>
     function redirectUser() {
       const params = new URLSearchParams(window.location.search);
       const baseGrantUrl = params.get("base_grant_url");
       const userContinueUrl = params.get("user_continue_url") || "http://example.com";
+
       if (baseGrantUrl) {
-        window.location.href = `${baseGrantUrl}?continue_url=${userContinueUrl}`;
+        window.location.href = `${baseGrantUrl}?continue_url=${encodeURIComponent(userContinueUrl)}`;
+      } else {
+        alert("base_grant_url is missing. Are you testing without Meraki?");
       }
-      return false;
     }
   </script>
 </body>
