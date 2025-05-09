@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Free Wi-Fi</title>
+</head>
+<body>
+  <h1>Enjoy Free Wi-Fi</h1>
+  <p>Click below to continue.</p>
+  <form action="" method="get" onsubmit="redirectUser()">
+    <input type="submit" value="Connect">
+  </form>
+  <script>
+    function redirectUser() {
+      const params = new URLSearchParams(window.location.search);
+      const baseGrantUrl = params.get("base_grant_url");
+      const userContinueUrl = params.get("user_continue_url") || "http://example.com";
+      if (baseGrantUrl) {
+        window.location.href = `${baseGrantUrl}?continue_url=${userContinueUrl}`;
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
