@@ -9,20 +9,20 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 999;
+      z-index: 9999;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.6);
     }
 
     .modal-content {
       background-color: #fff;
       margin: 10% auto;
       padding: 20px;
-      border-radius: 4px;
+      border-radius: 5px;
       width: 90%;
       max-width: 600px;
       max-height: 70%;
@@ -36,17 +36,21 @@
     }
 
     .close {
-      color: #aaa;
       font-size: 28px;
       font-weight: bold;
+      color: #aaa;
       cursor: pointer;
     }
 
     .close:hover {
       color: #000;
     }
+
+    .terms-box {
+      margin-top: 15px;
+    }
   </style>
-  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <body>
@@ -56,88 +60,116 @@
         <div id="icon_cell">$MERAKI:NETWORK_LOGO_IMG_TAG$</div>
       </div>
 
-      <div id="continue">
-        <h1>$MERAKI:WELCOME$$MERAKI:NETWORK_NAME$</h1>
-        <p>$MERAKI:NETWORK_MESSAGE$</p>
+      <div class="error $MERAKI:HIDDEN_UNLESS_NOTICE_MESSAGES$">
+        <p>$MERAKI:NOTICE_MESSAGES$</p>
+      </div>
 
-        <!-- Terms Checkbox -->
-        <div style="margin: 15px 0;">
-          <label>
-            <input type="checkbox" id="acceptTerms">
-            I accept the <a href="#" id="openTerms">Terms and Conditions</a>
-          </label>
+      <div id="auth">
+        <div id="left_col">
+          <h1>$MERAKI:WELCOME$$MERAKI:NETWORK_NAME$</h1>
+          <p>$MERAKI:NETWORK_MESSAGE$</p>
+          <p>$MERAKI:AUTH_REQUIRED_FOR_ACCESS$</p>
         </div>
 
-        <!-- Continue Button -->
-        <a class="button" href="#" id="continueBtn" title="Continue to the Internet">
-          $MERAKI:CONTINUE_TO_THE_INTERNET$
-        </a>
-      </div>
-    </div>
+        <div id="right_col">
+          <div class="login-error $MERAKI:HIDDEN_UNLESS_ERROR_MESSAGES$">
+            <p>$MERAKI:WARNING_IMAGE$$MERAKI:ERROR_MESSAGES$</p>
+          </div>
+          <div id="signin_form" class="formarea">
+            $MERAKI:MODERN_AUTH_ALREADY_HAVE_ACCOUNT_SIGN_IN_HERE_FORM$
+            <div class="terms-box">
+              <input type="checkbox" id="acceptTerms" />
+              <label for="acceptTerms">
+                I accept the <a href="#" id="showTerms">Terms and Conditions</a>
+              </label>
+            </div>
+            <div class="form_links $MERAKI:HIDDEN_UNLESS_CAN_CREATE_ACCOUNT$">
+              <a class="toggle_link" id="create_account_link" href="#">$MERAKI:AUTH_CREATE_ACCOUNT_TITLE$</a>
+            </div>
+          </div>
 
-    <div class="footer">
-      <h3>POWERED BY</h3>
-      $MERAKI:CISCO_MERAKI_SMALL$
+          <div id="account" class="form_links $MERAKI:HIDDEN_UNLESS_CAN_CREATE_ACCOUNT$">
+            <div id="create_account_form" class="formarea $MERAKI:HIDDEN_UNLESS_CAN_CREATE_ACCOUNT$">
+              <h2>$MERAKI:AUTH_CREATE_ACCOUNT_TEXT$</h2>
+              $MERAKI:MODERN_AUTH_CREATE_ACCOUNT_FORM$
+              <div class="terms-box">
+                <input type="checkbox" id="acceptTerms2" />
+                <label for="acceptTerms2">
+                  I accept the <a href="#" id="showTerms2">Terms and Conditions</a>
+                </label>
+              </div>
+              <div class="form_links">
+                <a class="toggle_link" id="signin_link" href="#">$MERAKI:AUTH_SIGN_IN_TITLE$</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Modal for Terms -->
+  <div class="footer">
+    <h3>POWERED BY</h3>
+    $MERAKI:CISCO_MERAKI_SMALL$
+  </div>
+
+  <!-- Terms Modal -->
   <div id="termsModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h2>Terms and Conditions</h2>
         <span class="close" id="closeModal">&times;</span>
       </div>
-      <div class="modal-body">
-        <p><strong>1. Use of Network:</strong> By connecting, you agree to use the network for lawful purposes only.</p>
-        <p><strong>2. Data Privacy:</strong> Your session may be monitored for network security and optimization.</p>
-        <p><strong>3. Restrictions:</strong> No illegal downloads, harassment, or unauthorized access attempts.</p>
-        <p><strong>4. Liability:</strong> The provider is not liable for data loss or damage.</p>
-        <p><strong>5. Changes:</strong> Terms may change without notice. Continued use implies acceptance.</p>
-        <!-- Add more as needed -->
+      <div>
+        <p><strong>1.</strong> You agree to use this network for lawful purposes only.</p>
+        <p><strong>2.</strong> No illegal downloads or unauthorized access attempts.</p>
+        <p><strong>3.</strong> Your traffic may be monitored for security and compliance.</p>
+        <p><strong>4.</strong> We are not responsible for data loss or connection issues.</p>
+        <p><strong>5.</strong> Terms are subject to change without notice.</p>
       </div>
     </div>
   </div>
 
-  <!-- Meraki JS -->
+  $MERAKI:TOGGLE_SIGN_ON_JS$
   $MERAKI:MERAKI_JS$
 
-  <!-- JavaScript -->
+  <!-- Script for modal + validation -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const continueBtn = document.getElementById("continueBtn");
-      const checkbox = document.getElementById("acceptTerms");
-      const openTerms = document.getElementById("openTerms");
-      const modal = document.getElementById("termsModal");
-      const closeModal = document.getElementById("closeModal");
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.getElementById('termsModal');
+      const closeModal = document.getElementById('closeModal');
 
-      // Handle Continue button
-      continueBtn.addEventListener("click", function (e) {
-        if (!checkbox.checked) {
-          e.preventDefault();
-          alert("You must accept the Terms and Conditions to continue.");
-        } else {
-          window.location.href = "$MERAKI:AUTH_AND_CONTINUE_URL$";
-        }
-      });
-
-      // Open modal
-      openTerms.addEventListener("click", function (e) {
+      // Show modal links
+      document.getElementById('showTerms').addEventListener('click', function (e) {
         e.preventDefault();
-        modal.style.display = "block";
+        modal.style.display = 'block';
+      });
+      document.getElementById('showTerms2').addEventListener('click', function (e) {
+        e.preventDefault();
+        modal.style.display = 'block';
       });
 
       // Close modal
-      closeModal.addEventListener("click", function () {
-        modal.style.display = "none";
+      closeModal.addEventListener('click', function () {
+        modal.style.display = 'none';
       });
-
-      // Close modal when clicking outside
-      window.addEventListener("click", function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
+      window.addEventListener('click', function (e) {
+        if (e.target === modal) {
+          modal.style.display = 'none';
         }
       });
+
+      // Disable form submit unless terms are accepted
+      const originalSubmit = HTMLFormElement.prototype.submit;
+      HTMLFormElement.prototype.submit = function () {
+        const terms1 = document.getElementById('acceptTerms');
+        const terms2 = document.getElementById('acceptTerms2');
+        if ((terms1 && !terms1.checked) || (terms2 && !terms2.checked)) {
+          alert('You must accept the Terms and Conditions before continuing.');
+          return;
+        }
+        originalSubmit.call(this);
+      };
     });
   </script>
 </body>
