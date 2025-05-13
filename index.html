@@ -1,618 +1,144 @@
 <!DOCTYPE html>
 <html>
-<head><meta name='robots' content='none' /><base href="https://n594.network-auth.com/splash/" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title> Guest</title>
+<head>
+  <title>$MERAKI:NETWORK_NAME$</title>
   <style type="text/css" media="screen">
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+    $MERAKI:INLINE_MAIN_CSS$
 
-.modal-content {
-  background-color: white;
-  padding: 2em;
-  border-radius: 5px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
 
-.hidden {
-  display: none;
-}
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 4px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 70%;
+      overflow-y: auto;
+    }
 
-    html { font-size: 100%;-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-form { margin: 0; }
-label { cursor: pointer; }
-button, input {
-  -webkit-appearance:none;
-  font-size: 100%;
-  margin: 0;
-  vertical-align: baseline;
-  *vertical-align: middle;
-  line-height: normal;
-  *overflow: visible;
-}
-button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-a, a:visited, a:active {color: #fff; text-decoration: none;}
+    .close {
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-.hidden { display: none; }
-
-body {
-  margin: 0;
-  background: #eee;
-  color: #555;
-  font-size: 14px;
-  line-height: 1.4em;
-  font-family: georgia, palatino, serif;
-}
-
-h1, h2,  h3, p, a {
-  font-family: CiscoSans, helvetica, helvetica neue, verdana, tahoma, sans-serif;
-}
-h1 {
-  font-size: 30px;
-  font-weight: 100;
-  line-height: 35px;
-  color: #555;
-  margin: 0 0 1em;
-}
-h2 {
-  font-size: 14px;
-  font-weight: normal;
-}
-h3 {
-  font-size: 9px;
-  font-weight: 400;
-  letter-spacing: 1px;
-  color: #888;
-}
-p{
-  color: #555;
-}
-
-.link_in_text a { color: #555 }
-
-.header {
-  border-bottom: 1px solid #ddd;
-  padding: 2em 0;
-  margin: 0 0 2em 0;
-}
-
-.header table { width: 100%; }
-#title_cell { vertical-align: bottom; }
-#icon_cell { text-align: center; }
-#icon_cell img {
-  max-width: 200px;
-  max-height: 100px;
-}
-
-#container {
-  max-width: 900px;
-  min-width: 300px;
-  margin: 0 auto;
-  background: #fff;
-  text-align: center;
-}
-
-#content {
-  background: #fff;
-}
-
-#continue {
-  padding: 2em;
-}
-
-#blocked {
-  padding: 2em;
-}
-
-#auth {
-  box-sizing: border-box;
-  padding: 0 1.5em 2em;
-}
-
-#left_col {
-  width: 100%;
-  margin-bottom: 3em;
-  text-align: left;
-}
-
-#right_col {
-  width: 100%;
-  text-align: left;
-  margin-top: 4em;
-  margin: 0 auto;
-}
-
-#account a {
-  color: #1795E6;
-  margin-right:  1em;
-  padding-right: 1em;
-  border-right: 1px solid #ccc;
-}
-
-#account a:hover {
-  color: #0876BD;
-}
-
-#account a:last-child {
-  border: none;
-}
-
-#sign_in {
-  background: #65ad43;
-  color: #ffffff;
-  border-radius: 2px;
-  margin: 2.5em 0 1em;
-  padding: 1em;
-  box-sizing: border-box;
-  width: 100%;
-  display: inline-block;
-  text-align: center;
-}
-
-#sign_in:hover {
-  opacity: .85;
-}
-
-#blocked_msg {
-  text-align: center;
-  padding: 15px 0;
-}
-
-#claim_ap_msg {
-  text-align: center;
-  padding: 15px 0;
-}
-
-.formarea h3 {
-  line-height: 0;
-}
-
-.formarea input {
-  background: #eee;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  border-radius: 2px;
-  padding: .7em;
-  width: 100%;
-}
-
-#email_field {
-  margin-bottom: 1.5em;
-}
-
-.button {
-  color: #ffffff;
-  background: #65ad43;
-  padding: 1em 2em;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  display: inline-block;
-  margin: 1em 0;
-}
-
-.button:hover {
-  opacity: .85;
-}
-
-#forgot_password, .form_links:not(.hidden) {
-  display: inline;
-}
-
-#signin_form .form_links {
-  float: right;
-}
-
-#forgot_password a,
-.form_links a {
-  font-size:  12px;
-  color: #1795E6;
-}
-
-#forgot_password a:hover,
-.form_links a:hover {
-  color: #0876BD;
-}
-
-#create_account_form h3 {
-  margin-top: 3em;
-}
-
-.footer {
-  width: 100%;
-  background: #eee;
-  border-top: 1px solid #ddd;
-  padding: 2em 0;
-  text-align: center;
-  display: inline-block;
-}
-
-.footer img {
-  margin: .5em 0;
-}
-
-.meraki_go_footer {
-  width: 100%;
-  background: #fff;
-  border-top: 1px solid #ddd;
-  padding: 2em 0;
-  text-align: center;
-  display: inline-block;
-}
-
-.meraki_go_footer img {
-  margin: .5em 0;
-}
-
-.error {
-  background: #eee;
-  border-radius: 2px;
-  border: 1px solid #ddd;
-  margin: 3em 3em 0;
-  box-sizing: border-box;
-  padding: 0 .5em;
-}
-
-.error p {
-  color: #999;
-  font-size: 12px;
-}
-
-.login-error {
-  background: #ffdddd;
-  border-radius: 2px;
-  border: 1px solid #ffb8b8;
-  box-sizing: border-box;
-  text-align: center;
-  margin-bottom: 2em;
-}
-
-.login-error p {
-  color: #ff5959;
-  font-size: 12px;
-}
-
-.login-error img {
-  width: 11px;
-  margin: 5px 7px 0 0;
-}
-
-input:invalid, textarea:invalid { background-color: #f0dddd; }
-.formarea input:invalid, textarea:invalid { border-radius: 1px; -moz-box-shadow: 0px 0px 0px red; -webkit-box-shadow: 0px 0px 0px red; box-shadow: 0px 0px 0px red; }
-.formarea label.invalid {border: none; color: red; min-height: inherit; padding: 5px 0 0; margin: 0;}
-
-@media (min-width: 370px) {
-  #auth {
-    padding: 3em 3em 5em;
-  }
-  #left_col {
-    text-align: center;
-  }
-}
-
-@media (min-width: 550px) {
-  #auth {
-    padding: 3em 3em 5em;
-  }
-  #left_col {
-    width: 70%;
-    margin: 0 auto;
-    padding-bottom: 3em;
-    text-align: center;
-  }
-  #right_col {
-    width: 70%;
-    margin: 0 auto;
-  }
-}
-
-@media (min-width: 730px) {
-  #auth {
-    display: inline-block;
-    padding: 3em 3em 5em;
-  }
-  #left_col {
-    float: left;
-    text-align: left;
-    width: 50%;
-    padding-right: 3em;
-    box-sizing: border-box;
-  }
-  #right_col {
-    float: left;
-    width: 50%;
-    margin: 0;
-    padding-left: 3em;
-    box-sizing: border-box;
-  }
-}
-
-.GoSplash .header {
-  padding-top: 4em;
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.GoSplash #blocked {
-  padding-top: 1em;
-}
-
-.GoSplash .GoSplash__blockedIcon {
-  height: 8em;
-}
-
-.GoSplash .GoSplash__blockedIconLine--primary {
-  fill: #213A44;
-}
-
-.GoSplash .GoSplash__blockedIconLine--accent {
-  fill: #16E4D8;
-}
-
-.GoSplash h1 {
-  font-weight: 300;
-  color: #213A44;
-}
-
-.GoSplash p {
-  color: #666F77;
-}
-
-@media (max-width: 400px) {
-  .GoSplash .GoSplash__blockedIcon {
-    height: 6em;
-  }
-
-  .GoSplash .header {
-    padding-top: 2em;
-    padding-bottom: 0.5em;
-  }
-
-  .GoSplash h1 {
-    font-size: 24px;
-  }
-}
-
+    .close:hover {
+      color: #000;
+    }
   </style>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
 </head>
 
 <body>
   <div id="content">
     <div id="container">
       <div class="header">
-        <div id="icon_cell"><img src='data:image/png;base64,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
-oHF9j2TI/wdGhOhwqnqjHwAAAABJRU5ErkJggg==
-' /></div>
+        <div id="icon_cell">$MERAKI:NETWORK_LOGO_IMG_TAG$</div>
       </div>
 
-      <div class="error hidden">
-        <p></p>
+      <div id="continue">
+        <h1>$MERAKI:WELCOME$$MERAKI:NETWORK_NAME$</h1>
+        <p>$MERAKI:NETWORK_MESSAGE$</p>
+
+        <!-- Terms Checkbox -->
+        <div style="margin: 15px 0;">
+          <label>
+            <input type="checkbox" id="acceptTerms">
+            I accept the <a href="#" id="openTerms">Terms and Conditions</a>
+          </label>
+        </div>
+
+        <!-- Continue Button -->
+        <a class="button" href="#" id="continueBtn" title="Continue to the Internet">
+          $MERAKI:CONTINUE_TO_THE_INTERNET$
+        </a>
       </div>
+    </div>
 
-      <div id="auth">
-        <div id="left_col">
-          <h1>Welcome to Intellicare!</h1>
-          <p></p>
-          <p>You will need an access code to use this network.</p>
-        </div>
+    <div class="footer">
+      <h3>POWERED BY</h3>
+      $MERAKI:CISCO_MERAKI_SMALL$
+    </div>
+  </div>
 
-        <div id="right_col">
-          <div class="login-error go-error-toggle hidden">
-            <p><img src="/images/warning_red.png" alt="Warning red" /><!-- ERROR_MESSAGES --></p>
-          </div>
-          <div id="signin_form" class="formarea form_links">
-                  <form id="sign_in_form" onsubmit="javascript:return update_form_action_from_headers(document.getElementById(&quot;sign_in_form&quot;));" action="https://n594.network-auth.com/Guest/hi/CRpUpcAxb/login?continue_url=https%3A%2F%2Fwww.google.com" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" />
-        <h3>ENTER YOUR ACCESS CODE HERE:</h3>
-        <input type="text" name="prepaid_code" id="prepaid_code" />
-        <input type="submit" name="commit" value="Continue" class="btn btn-default" id="sign_in" />
-      </form>
-
-          </div>
-        </div>
+  <!-- Modal for Terms -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Terms and Conditions</h2>
+        <span class="close" id="closeModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <p><strong>1. Use of Network:</strong> By connecting, you agree to use the network for lawful purposes only.</p>
+        <p><strong>2. Data Privacy:</strong> Your session may be monitored for network security and optimization.</p>
+        <p><strong>3. Restrictions:</strong> No illegal downloads, harassment, or unauthorized access attempts.</p>
+        <p><strong>4. Liability:</strong> The provider is not liable for data loss or damage.</p>
+        <p><strong>5. Changes:</strong> Terms may change without notice. Continued use implies acceptance.</p>
+        <!-- Add more as needed -->
       </div>
     </div>
   </div>
-  <div class="footer">
-    <h3>POWERED BY</h3>
-    <img width="100" alt="Cisco Meraki" src="/images/cisco-meraki-gray.png" />
-  </div>
 
-      <script type="text/javascript" charset="utf-8">
-        
-              function disable_subsequent_click() {
-        var sign_in_button = document.getElementById('sign_in');
-        if (sign_in_button != null) {
-          setTimeout('sign_in_button.disabled = false;', 60000);
-          sign_in_button.disabled = true;
+  <!-- Meraki JS -->
+  $MERAKI:MERAKI_JS$
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const continueBtn = document.getElementById("continueBtn");
+      const checkbox = document.getElementById("acceptTerms");
+      const openTerms = document.getElementById("openTerms");
+      const modal = document.getElementById("termsModal");
+      const closeModal = document.getElementById("closeModal");
+
+      // Handle Continue button
+      continueBtn.addEventListener("click", function (e) {
+        if (!checkbox.checked) {
+          e.preventDefault();
+          alert("You must accept the Terms and Conditions to continue.");
+        } else {
+          window.location.href = "$MERAKI:AUTH_AND_CONTINUE_URL$";
         }
-        return true;
-      }
+      });
 
-      function update_form_action_from_headers(form) {
-        disable_subsequent_click();
-        var _request = new XMLHttpRequest();
-        var url = 'https://n594.network-auth.com/splash/login?continue_url=CONTINUE_URL_PLACEHOLDER';
-        _request.open('HEAD', window.location, true);
-        _request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        _request.onreadystatechange = function() {
-          if (_request.readyState === 4) {
-            var continue_url = _request.getResponseHeader('Continue-Url');
-            form.action = url.replace('CONTINUE_URL_PLACEHOLDER', continue_url);
-            form.submit();
-          }
+      // Open modal
+      openTerms.addEventListener("click", function (e) {
+        e.preventDefault();
+        modal.style.display = "block";
+      });
+
+      // Close modal
+      closeModal.addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      // Close modal when clicking outside
+      window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
         }
-        _request.send(null);
-        return false;
-      }
-
-        
-      </script>
-<div id="confirmationModal" class="modal hidden">
-  <div class="modal-content">
-    <p>Please accept the terms before continuing.</p>
-    <button id="acceptButton" class="button">Accept</button>
-  </div>
-</div>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const continueButton = document.getElementById('sign_in');
-    const modal = document.getElementById('confirmationModal');
-    const acceptButton = document.getElementById('acceptButton');
-
-    continueButton.addEventListener('click', function (e) {
-      e.preventDefault(); // prevent default action
-      modal.classList.remove('hidden'); // show modal
+      });
     });
-
-    acceptButton.addEventListener('click', function () {
-      modal.classList.add('hidden'); // hide modal
-      // Perform the original continue action here
-      // For example, submit a form or redirect
-      window.location.href = continueButton.getAttribute('href') || '#';
-    });
-  });
-</script>
-
+  </script>
 </body>
 </html>
-
